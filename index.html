@@ -5,6 +5,31 @@
 <title>A Quiet Letter</title>
 
 <style>
+/* PHOTOS */
+.photos img {
+  position: fixed;
+  width: 110px;
+  border-radius: 10px;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* vị trí từng ảnh */
+.photo1 { top: 60px; left: 20px; }
+.photo2 { top: 60px; right: 20px; }
+.photo3 { bottom: 60px; left: 20px; }
+.photo4 { bottom: 60px; right: 20px; }
+
+/* LETTER OVERLAY */
+.letter {
+  z-index: 5;
+}
+
+.letter-content {
+  z-index: 10;
+  position: relative;
+}
+
 body {
   margin: 0;
   height: 100vh;
@@ -105,6 +130,13 @@ body {
 </head>
 
 <body>
+<div class="photos">
+  <img src="img1.jpg" class="photo1">
+  <img src="img2.jpg" class="photo2">
+  <img src="img3.jpg" class="photo3">
+  <img src="img4.jpg" class="photo4">
+</div>
+
 
 <!-- ENVELOPE -->
 <div class="envelope" id="openEnvelope"></div>
