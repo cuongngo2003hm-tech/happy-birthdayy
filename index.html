@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>A Small Message 💌</title>
+<title>A Small Letter 💌</title>
 
 <style>
 body {
@@ -12,32 +12,33 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: "Segoe UI", sans-serif;
     overflow: hidden;
 }
 
-/* ánh sáng nền */
+/* ánh sáng nhẹ */
 .glow {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 320px;
     background: radial-gradient(circle, rgba(255,200,220,0.4), transparent);
     animation: glow 6s infinite alternate;
 }
 
 @keyframes glow {
-    from { transform: scale(1); opacity: 0.5; }
-    to { transform: scale(1.2); opacity: 0.8; }
+    from { transform: scale(1); opacity: 0.4; }
+    to { transform: scale(1.2); opacity: 0.7; }
 }
 
+/* hộp thư */
 .container {
-    text-align: center;
     background: white;
     padding: 35px;
     border-radius: 22px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.12);
     width: 90%;
     max-width: 420px;
+    text-align: center;
     position: relative;
     z-index: 2;
 }
@@ -50,27 +51,27 @@ body {
 }
 
 .envelope.open {
-    transform: translateY(-40px) scale(0.8);
-    opacity: 0.3;
+    transform: translateY(-35px) scale(0.85);
+    opacity: 0.35;
 }
 
-/* thư */
-.message {
+/* nội dung thư */
+.letter {
     opacity: 0;
     transform: translateY(20px);
-    margin-top: 20px;
-    font-size: 16px;
+    transition: opacity 3s ease, transform 3s ease;
+    text-align: left;
     color: #555;
     line-height: 1.9;
-    transition: opacity 3s ease, transform 3s ease;
+    font-size: 16px;
 }
 
-.message.show {
+.letter.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* trang trí bay */
+/* trang trí */
 .shape {
     position: absolute;
     opacity: 0.4;
@@ -90,7 +91,7 @@ body {
 
 <div class="glow"></div>
 
-<!-- Trang trí -->
+<!-- Trang trí nhẹ -->
 <div class="shape" style="top:15%; left:20%">🌙</div>
 <div class="shape" style="top:70%; left:75%">☁️</div>
 <div class="shape" style="top:40%; left:10%">🌼</div>
@@ -99,19 +100,46 @@ body {
 <div class="container">
     <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
 
-    <div id="message" class="message">
-        Happy Birthday 🌷  
-        <br><br>
-        I don’t really know how to say this,  
-        but I hope you’ve been okay lately.  
-        Being far from home isn’t easy at all,  
-        and I hope you’re taking care of yourself  
-        even on the quiet, heavy days.  
-        <br><br>
-        If things ever feel a little lonely,  
-        I just hope you know  
-        someone out there is gently wishing you  
-        warmth, peace, and softer days ahead.
+    <div id="letter" class="letter">
+
+        <p><strong>To,</strong><br>
+        Thùy Dung</p>
+
+        <p><strong>Dear Thùy Dung,</strong></p>
+
+        <p>
+            Happy Birthday.
+        </p>
+
+        <p>
+            I hope today feels gentle enough for you.  
+            I know you tend to think a lot,  
+            and sometimes your heart feels things more deeply than you let on.
+        </p>
+
+        <p>
+            Being far from home isn’t easy,  
+            especially on days when your thoughts get a little heavy.  
+            I just hope you remember to be kind to yourself  
+            even when your mind won’t slow down.
+        </p>
+
+        <p>
+            You don’t always have to be strong.  
+            It’s okay to pause, to breathe,  
+            and to let yourself feel whatever comes quietly.
+        </p>
+
+        <p>
+            If this message reaches you at the right moment,  
+            I hope it feels like a soft hand resting gently on your shoulder. 
+        </p>
+
+        <p style="margin-top:25px;">
+            Your friend,<br>
+            <strong>Đức Cường</strong>
+        </p>
+
     </div>
 </div>
 
@@ -122,13 +150,13 @@ body {
 <script>
 function openLetter() {
     const envelope = document.getElementById("envelope");
-    const message = document.getElementById("message");
+    const letter = document.getElementById("letter");
     const music = document.getElementById("bgMusic");
 
     envelope.classList.add("open");
 
     setTimeout(() => {
-        message.classList.add("show");
+        letter.classList.add("show");
 
         music.volume = 0;
         music.play();
