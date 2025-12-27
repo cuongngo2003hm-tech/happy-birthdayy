@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A Small Message</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(120deg, #fde2e4, #fef6e4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      color: #ff8fa3;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #444;
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 20px;
+      background: #ffb3c6;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #ff8fab;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 16px;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>Happy Birthday 🎂</h1>
+  <p id="text"></p>
+
+  <button onclick="toggleMusic()">🎵 Play / Pause Music</button>
+
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/10/03/audio_3d6c5d7a5b.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+  const message = `
+I hope you’re doing well every day,
+even on the busy or tiring ones.
+
+Working far from home isn’t easy,
+so please take good care of yourself.
+
+Eat well, rest well,
+and hoping good things come your way 🌿
+
+Someone is quietly wishing you
+peace, warmth, and gentle days.
+`;
+
+  let i = 0;
+  const speed = 40;
+  const textEl = document.getElementById("text");
+
+  function typeWriter() {
+    if (i < message.length) {
+      textEl.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  typeWriter();
+
+  function toggleMusic() {
+    const music = document.getElementById("music");
+    if (music.paused) music.play();
+    else music.pause();
+  }
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (12 + Math.random() * 12) + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }, 800);
+</script>
+
+</body>
+</html>
