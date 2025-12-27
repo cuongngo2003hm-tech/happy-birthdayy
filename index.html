@@ -16,11 +16,11 @@ body {
     overflow: hidden;
 }
 
-/* ánh sáng nhẹ */
+/* ánh sáng nền */
 .glow {
     position: absolute;
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
     background: radial-gradient(circle, rgba(255,200,220,0.4), transparent);
     animation: glow 6s infinite alternate;
 }
@@ -30,7 +30,7 @@ body {
     to { transform: scale(1.2); opacity: 0.7; }
 }
 
-/* hộp thư */
+/* khung chính */
 .container {
     background: white;
     padding: 35px;
@@ -40,30 +40,32 @@ body {
     max-width: 420px;
     text-align: center;
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
 /* phong thư */
 .envelope {
     font-size: 65px;
     cursor: pointer;
-    transition: transform 1s ease, opacity 1s ease;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    display: inline-block;
 }
 
 .envelope.open {
-    transform: translateY(-35px) scale(0.85);
-    opacity: 0.35;
+    transform: translateY(-25px) scale(0.85);
+    opacity: 0.4;
 }
 
 /* nội dung thư */
 .letter {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 3s ease, transform 3s ease;
+    transition: opacity 2.5s ease, transform 2.5s ease;
     text-align: left;
     color: #555;
     line-height: 1.9;
     font-size: 16px;
+    margin-top: 15px;
 }
 
 .letter.show {
@@ -91,7 +93,7 @@ body {
 
 <div class="glow"></div>
 
-<!-- Trang trí nhẹ -->
+<!-- trang trí -->
 <div class="shape" style="top:15%; left:20%">🌙</div>
 <div class="shape" style="top:70%; left:75%">☁️</div>
 <div class="shape" style="top:40%; left:10%">🌼</div>
@@ -101,44 +103,40 @@ body {
     <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
 
     <div id="letter" class="letter">
-
-
+        <p><strong>To,</strong><br>Thùy Dung</p>
 
         <p><strong>Dear Thùy Dung,</strong></p>
 
-        <p>
-            Happy Birthday.
-        </p>
+        <p>Happy Birthday.</p>
 
         <p>
             I hope today feels gentle enough for you.  
             I know you tend to think a lot,  
-            and sometimes your heart feels things more deeply than you let on.
+            and sometimes your heart feels heavier than you let on.
         </p>
 
         <p>
             Being far from home isn’t easy,  
-            especially on days when your thoughts get a little heavy.  
-            I just hope you remember to be kind to yourself  
-            even when your mind won’t slow down.
+            especially on days when your thoughts won’t rest.  
+            I just hope you remember to be kind to yourself.
         </p>
 
         <p>
-            You don’t always have to be strong.  
-            It’s okay to pause, to breathe,  
-            and to let yourself feel whatever comes quietly.
+            You don’t have to be strong all the time.  
+            It’s okay to slow down.  
+            It’s okay to feel a little tired.
         </p>
 
         <p>
             If this message reaches you at the right moment,  
-            I hope it feels like a soft hand resting gently on your shoulder. 
+            I hope it feels like a quiet hand on your shoulder —  
+            gentle, warm, and understanding.
         </p>
 
         <p style="margin-top:25px;">
             Your friend,<br>
             <strong>Đức Cường</strong>
         </p>
-
     </div>
 </div>
 
@@ -163,13 +161,13 @@ function openLetter() {
         let vol = 0;
         const fade = setInterval(() => {
             if (vol < 1) {
-                vol += 0.015;
+                vol += 0.02;
                 music.volume = vol;
             } else {
                 clearInterval(fade);
             }
         }, 200);
-    }, 800);
+    }, 600);
 }
 </script>
 
