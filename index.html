@@ -5,6 +5,7 @@
 <title>A Small Letter 💌</title>
 
 <style>
+/* ===== NỀN ===== */
 body {
     margin: 0;
     height: 100vh;
@@ -16,33 +17,40 @@ body {
     overflow: hidden;
 }
 
-/* ✨ Background icons */
-.floating {
+/* ===== SAO / GIỌT NHẸ ===== */
+.fall {
     position: absolute;
-    font-size: 22px;
-    opacity: 0.5;
-    animation: float 10s ease-in-out infinite;
+    font-size: 18px;
+    opacity: 0.4;
+    animation: fall linear infinite;
 }
 
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-25px); }
-    100% { transform: translateY(0); }
+@keyframes fall {
+    0% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    30% { opacity: 0.6; }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
 }
 
-/* 💌 Main card */
+/* ===== KHUNG THƯ ===== */
 .container {
     background: white;
     width: 420px;
     max-width: 90%;
     border-radius: 22px;
-    padding: 30px 28px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    text-align: center;
+    padding: 30px 26px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     position: relative;
+    z-index: 5;
+    text-align: center;
 }
 
-/* Envelope */
+/* ===== PHONG THƯ ===== */
 .envelope {
     font-size: 60px;
     cursor: pointer;
@@ -54,28 +62,31 @@ body {
     opacity: 0.4;
 }
 
-/* Letter */
+/* ===== NỘI DUNG THƯ ===== */
 .letter {
     margin-top: 20px;
     opacity: 0;
     transform: translateY(20px);
     transition: 2s ease;
-    
+
     text-align: left;
-    padding: 25px;
-    border-radius: 16px;
+    padding: 24px 22px;
 
     font-style: italic;
     font-size: 16px;
-    line-height: 30px;
+
+    /* 🔥 CĂN DÒNG CHUẨN */
+    line-height: 32px;
 
     background:
         repeating-linear-gradient(
             to bottom,
-            #ffffff,
-            #ffffff 29px,
-            rgba(180,180,180,0.25) 30px
+            #ffffff 0px,
+            #ffffff 31px,
+            rgba(190,190,190,0.35) 32px
         );
+
+    border-radius: 16px;
 }
 
 .letter.show {
@@ -83,7 +94,7 @@ body {
     transform: translateY(0);
 }
 
-/* từng dòng chữ */
+/* Dòng chữ xuất hiện */
 .line {
     opacity: 0;
     transform: translateY(6px);
@@ -99,20 +110,20 @@ body {
 
 <body>
 
-<!-- 🌸 decorative icons -->
-<div class="floating" style="top:12%; left:18%;">🌙</div>
-<div class="floating" style="top:70%; left:12%;">🌼</div>
-<div class="floating" style="top:30%; left:85%;">✨</div>
-<div class="floating" style="top:65%; left:78%;">☁️</div>
-<div class="floating" style="top:18%; left:65%;">💫</div>
+<!-- 🌧️ mưa / sao rơi -->
+<div class="fall" style="left:10%; animation-duration:10s;">✨</div>
+<div class="fall" style="left:25%; animation-duration:13s;">💧</div>
+<div class="fall" style="left:40%; animation-duration:11s;">⭐</div>
+<div class="fall" style="left:55%; animation-duration:14s;">💧</div>
+<div class="fall" style="left:70%; animation-duration:12s;">✨</div>
+<div class="fall" style="left:85%; animation-duration:15s;">💫</div>
 
 <div class="container">
     <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
 
     <div id="letter" class="letter">
-        <p class="line"><b>To,</b><br>Thùy Dung</p>
 
-        <p class="line"><b>Dear Thùy Dung,</b></p>
+        <p class="line"><b>To,</b><br>Thùy Dung</p>
 
         <p class="line">Happy Birthday.</p>
 
@@ -140,10 +151,10 @@ body {
             someone is sitting beside you quietly, gently.
         </p>
 
-        <p class="line" style="margin-top:25px;">
-            Your friend,<br>
-            <b>your friend</b>
+        <p class="line" style="margin-top:24px;">
+            <b>Your friend,</b>
         </p>
+
     </div>
 </div>
 
@@ -172,11 +183,11 @@ function openLetter() {
         music.volume = 0;
         music.play();
 
-        let vol = 0;
+        let v = 0;
         const fade = setInterval(() => {
-            if (vol < 1) {
-                vol += 0.02;
-                music.volume = vol;
+            if (v < 1) {
+                v += 0.02;
+                music.volume = v;
             } else clearInterval(fade);
         }, 200);
     }, 600);
