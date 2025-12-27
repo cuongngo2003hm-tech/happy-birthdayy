@@ -1,164 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>A Small Message</title>
+<meta charset="UTF-8" />
+<title>A Small Message 💌</title>
 
-  <style>
+<style>
     body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(120deg, #fde2e4, #fef6e4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', sans-serif;
+        overflow: hidden;
     }
 
-    .card {
-      background: white;
-      padding: 35px;
-      border-radius: 20px;
-      max-width: 420px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      animation: fadeIn 1.5s ease;
-      z-index: 2;
+    .container {
+        text-align: center;
+        background: white;
+        padding: 30px;
+        border-radius: 22px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        width: 90%;
+        max-width: 420px;
+        z-index: 2;
     }
 
-    h1 {
-      color: #ff8fa3;
-      margin-bottom: 15px;
-    }
-
-    p {
-      font-size: 16px;
-      line-height: 1.7;
-      color: #444;
-      min-height: 140px;
-      white-space: pre-line;
+    h2 {
+        color: #444;
+        font-weight: 500;
     }
 
     button {
-      margin-top: 20px;
-      padding: 10px 22px;
-      border: none;
-      border-radius: 25px;
-      background: #ffb3c6;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
+        margin-top: 20px;
+        padding: 12px 26px;
+        border: none;
+        border-radius: 25px;
+        background: #ffd1dc;
+        color: #555;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
     }
 
     button:hover {
-      background: #ff8fab;
+        background: #ffb7c5;
+        transform: scale(1.05);
     }
 
-    .hidden {
-      display: none;
+    .message {
+        opacity: 0;
+        margin-top: 25px;
+        font-size: 16px;
+        color: #555;
+        line-height: 1.8;
+        transition: opacity 4s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    .show {
+        opacity: 1;
     }
 
-    /* Floating decorations */
-    .float {
-      position: absolute;
-      font-size: 18px;
-      animation: float 8s linear infinite;
-      opacity: 0.8;
+    .shape {
+        position: absolute;
+        opacity: 0.4;
+        animation: float 14s infinite ease-in-out;
+        font-size: 22px;
     }
 
     @keyframes float {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      40% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-25px); }
+        100% { transform: translateY(0); }
     }
-  </style>
+</style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>💌 A Small Message</h1>
+<!-- Trang trí -->
+<div class="shape" style="top:15%; left:20%">🌙</div>
+<div class="shape" style="top:70%; left:75%">☁️</div>
+<div class="shape" style="top:40%; left:10%">🌼</div>
+<div class="shape" style="top:25%; left:70%">✨</div>
 
-  <button id="openBtn" onclick="openMessage()">Open message</button>
+<div class="container">
+    <h2>💌 A little message</h2>
 
-  <p id="text" class="hidden"></p>
+    <button onclick="showMessage()">Tap to open</button>
+
+    <div id="message" class="message">
+        Happy Birthday 🌼  
+        <br><br>
+        I hope life has been treating you gently lately.  
+        Even though you’re working far from home,  
+        I hope you’re taking good care of yourself —  
+        eating well, resting enough, and staying warm.  
+        <br><br>
+        Some days might feel long,  
+        but I hope you know that somewhere out there,  
+        someone is quietly wishing you peace, comfort,  
+        and a little softness in your days.
+    </div>
 </div>
 
-<audio id="music" loop>
-  <!-- Đổi tên file nếu bạn dùng nhạc khác -->
-  <source src="music.mp3" type="audio/mpeg">
+<audio id="bgMusic">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  const message = `
-Happy Birthday 🎂
+function showMessage() {
+    const msg = document.getElementById("message");
+    const music = document.getElementById("bgMusic");
 
-I hope you’re doing well every day,
-even on the busy or tiring ones.
+    msg.classList.add("show");
 
-Working far from home isn’t easy,
-so please take good care of yourself.
-
-Eat well, rest well,
-and hoping good things come your way 🌿
-
-Someone is quietly wishing you
-peace, warmth, and gentle days.
-`;
-
-  let i = 0;
-  const speed = 85; // tốc độ chữ (tăng = chậm hơn)
-  const textEl = document.getElementById("text");
-  const button = document.getElementById("openBtn");
-  const music = document.getElementById("music");
-
-  function openMessage() {
-    button.style.display = "none";
-    textEl.classList.remove("hidden");
-
-    // phát nhạc khi bấm
-    music.currentTime = 0;
+    music.volume = 0;
     music.play();
 
-    typeWriter();
-    startDecorations();
-  }
-
-  function typeWriter() {
-    if (i < message.length) {
-      textEl.innerHTML += message.charAt(i);
-      i++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  function startDecorations() {
-    const icons = ["⭐", "🌙", "☁️", "✨", "🌸"];
-    setInterval(() => {
-      const deco = document.createElement("div");
-      deco.className = "float";
-      deco.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-      deco.style.left = Math.random() * 100 + "vw";
-      deco.style.fontSize = (14 + Math.random() * 14) + "px";
-      document.body.appendChild(deco);
-
-      setTimeout(() => deco.remove(), 8000);
-    }, 900);
-  }
+    let v = 0;
+    const fade = setInterval(() => {
+        if (v < 1) {
+            v += 0.02;
+            music.volume = v;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+}
 </script>
 
 </body>
