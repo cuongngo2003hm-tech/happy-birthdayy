@@ -19,34 +19,32 @@
     .container {
         text-align: center;
         background: white;
-        padding: 30px;
+        padding: 35px;
         border-radius: 22px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.12);
         width: 90%;
         max-width: 420px;
-        z-index: 2;
+        position: relative;
     }
 
-    h2 {
-        color: #444;
-        font-weight: 500;
-    }
-
-    button {
-        margin-top: 20px;
-        padding: 12px 26px;
-        border: none;
-        border-radius: 25px;
-        background: #ffd1dc;
-        color: #555;
-        font-size: 15px;
+    /* 💌 phong thư */
+    .envelope {
+        font-size: 60px;
         cursor: pointer;
-        transition: 0.3s;
+        transition: transform 0.4s ease;
     }
 
-    button:hover {
-        background: #ffb7c5;
-        transform: scale(1.05);
+    .envelope:hover {
+        transform: scale(1.1);
+    }
+
+    .open {
+        animation: openLetter 1s forwards;
+    }
+
+    @keyframes openLetter {
+        0% { transform: scale(1); }
+        100% { transform: scale(0.9) rotateX(25deg); opacity: 0.3; }
     }
 
     .message {
@@ -54,7 +52,7 @@
         margin-top: 25px;
         font-size: 16px;
         color: #555;
-        line-height: 1.8;
+        line-height: 1.9;
         transition: opacity 4s ease;
     }
 
@@ -86,48 +84,54 @@
 <div class="shape" style="top:25%; left:70%">✨</div>
 
 <div class="container">
-    <h2>💌 A little message</h2>
-
-    <button onclick="showMessage()">Tap to open</button>
+    <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
 
     <div id="message" class="message">
-        Happy Birthday 🌼  
+        Happy Birthday 🌷  
         <br><br>
-        I hope life has been treating you gently lately.  
-        Even though you’re working far from home,  
-        I hope you’re taking good care of yourself —  
-        eating well, resting enough, and staying warm.  
+        I don’t really know how to say this,  
+        but I hope you’ve been okay lately.  
+        Being far from home isn’t easy at all,  
+        and I just hope you’re taking care of yourself —  
+        even on the days when it feels a little heavy.  
         <br><br>
-        Some days might feel long,  
-        but I hope you know that somewhere out there,  
-        someone is quietly wishing you peace, comfort,  
-        and a little softness in your days.
+        If things ever feel quiet or lonely,  
+        I hope you know that somewhere out there,  
+        someone is gently wishing you peace, warmth,  
+        and softer days ahead.
     </div>
 </div>
 
+<!-- 🎵 Nhạc -->
 <audio id="bgMusic">
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function showMessage() {
-    const msg = document.getElementById("message");
+function openLetter() {
+    const envelope = document.getElementById("envelope");
+    const message = document.getElementById("message");
     const music = document.getElementById("bgMusic");
 
-    msg.classList.add("show");
+    envelope.classList.add("open");
 
-    music.volume = 0;
-    music.play();
+    setTimeout(() => {
+        message.classList.add("show");
 
-    let v = 0;
-    const fade = setInterval(() => {
-        if (v < 1) {
-            v += 0.02;
-            music.volume = v;
-        } else {
-            clearInterval(fade);
-        }
-    }, 200);
+        music.volume = 0;
+        music.play();
+
+        let v = 0;
+        const fade = setInterval(() => {
+            if (v < 1) {
+                v += 0.02;
+                music.volume = v;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+
+    }, 600);
 }
 </script>
 
