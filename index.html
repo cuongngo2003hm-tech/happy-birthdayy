@@ -16,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-/* ánh sáng nền */
+/* Ánh sáng nền */
 .glow {
     position: absolute;
     width: 300px;
@@ -30,7 +30,7 @@ body {
     to { transform: scale(1.2); opacity: 0.7; }
 }
 
-/* khung chính */
+/* Khung chính */
 .container {
     background: white;
     padding: 35px;
@@ -43,12 +43,11 @@ body {
     z-index: 5;
 }
 
-/* phong thư */
+/* Phong thư */
 .envelope {
     font-size: 65px;
     cursor: pointer;
     transition: transform 0.8s ease, opacity 0.8s ease;
-    display: inline-block;
 }
 
 .envelope.open {
@@ -56,24 +55,53 @@ body {
     opacity: 0.4;
 }
 
-/* nội dung thư */
+/* 📜 THƯ VIẾT TAY */
 .letter {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 2.5s ease, transform 2.5s ease;
     text-align: left;
-    color: #555;
-    line-height: 1.9;
     font-size: 16px;
-    margin-top: 15px;
+    line-height: 2;
+    margin-top: 20px;
+    padding: 22px;
+
+    /* chữ hơi nghiêng như viết tay */
+    font-style: italic;
+
+    /* dòng kẻ đậm dần về cuối */
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,1),
+            rgba(255,255,255,1) 28px,
+            rgba(200,200,200,0.15) 29px,
+            rgba(200,200,200,0.25) 30px
+        );
+
+    border-radius: 14px;
+    color: #555;
 }
 
+/* hiện thư */
 .letter.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* trang trí */
+/* từng dòng chữ */
+.line {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.line.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Trang trí */
 .shape {
     position: absolute;
     opacity: 0.4;
@@ -93,7 +121,6 @@ body {
 
 <div class="glow"></div>
 
-<!-- trang trí -->
 <div class="shape" style="top:15%; left:20%">🌙</div>
 <div class="shape" style="top:70%; left:75%">☁️</div>
 <div class="shape" style="top:40%; left:10%">🌼</div>
@@ -103,39 +130,37 @@ body {
     <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
 
     <div id="letter" class="letter">
-        <p><strong>To,</strong><br>Thùy Dung</p>
+        <p class="line"><strong>To,</strong><br>Thùy Dung</p>
 
-        <p><strong>Dear Thùy Dung,</strong></p>
+        <p class="line"><strong>Dear Thùy Dung,</strong></p>
 
-        <p>Happy Birthday.</p>
+        <p class="line">Happy Birthday.</p>
 
-        <p>
+        <p class="line">
             I hope today feels gentle enough for you.  
-            I know you tend to think a lot,  
-            and sometimes your heart feels heavier than you let on.
+            I know you think a lot,  
+            and sometimes your heart feels heavier than you show.
         </p>
 
-        <p>
+        <p class="line">
             Being far from home isn’t easy,  
-            especially on days when your thoughts won’t rest.  
-            I just hope you remember to be kind to yourself.
+            especially on quiet days like this.
         </p>
 
-        <p>
+        <p class="line">
             You don’t have to be strong all the time.  
             It’s okay to slow down.  
             It’s okay to feel a little tired.
         </p>
 
-        <p>
-            If this message reaches you at the right moment,  
-            I hope it feels like a quiet hand on your shoulder —  
-            gentle, warm, and understanding.
+        <p class="line">
+            If this message reaches you softly,  
+            I hope it feels like someone sitting beside you.
         </p>
 
-        <p style="margin-top:25px;">
+        <p class="line" style="margin-top:25px;">
             Your friend,<br>
-            <strong>Đức Cường</strong>
+            <strong>your friend</strong>
         </p>
     </div>
 </div>
@@ -148,12 +173,19 @@ body {
 function openLetter() {
     const envelope = document.getElementById("envelope");
     const letter = document.getElementById("letter");
+    const lines = document.querySelectorAll(".line");
     const music = document.getElementById("bgMusic");
 
     envelope.classList.add("open");
 
     setTimeout(() => {
         letter.classList.add("show");
+
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add("show");
+            }, index * 700);
+        });
 
         music.volume = 0;
         music.play();
@@ -167,6 +199,7 @@ function openLetter() {
                 clearInterval(fade);
             }
         }, 200);
+
     }, 600);
 }
 </script>
