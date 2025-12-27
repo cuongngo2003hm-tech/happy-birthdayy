@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>A Quiet Letter</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(120deg, #f6f1eb, #fbeee6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+}
+
+/* Envelope */
+.envelope {
+  width: 220px;
+  height: 150px;
+  background: #e7cfc1;
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transition: transform 0.4s;
+}
+
+.envelope:hover {
+  transform: scale(1.05);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 110px solid transparent;
+  border-right: 110px solid transparent;
+  border-top: 75px solid #e0bfae;
+}
+
+/* Letter */
+.letter {
+  position: absolute;
+  width: 80%;
+  max-width: 600px;
+  background: #fffaf5;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: 1.2s ease;
+  display: none;
+  line-height: 1.8;
+}
+
+.letter.show {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.text {
+  font-size: 17px;
+  color: #444;
+  white-space: pre-line;
+}
+
+.signature {
+  margin-top: 30px;
+  font-style: italic;
+  text-align: right;
+}
+
+/* Floating icons */
+.float {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0.6;
+  animation: float 10s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+  20% { opacity: 0.6; }
+  100% {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+}
+
+/* Images */
+.photos {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.photos img {
+  width: 120px;
+  border-radius: 10px;
+  opacity: 0.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Envelope -->
+<div class="envelope" onclick="openLetter()"></div>
+
+<!-- Letter -->
+<div class="letter" id="letter">
+  <div class="text">
+Being far from home isn’t easy, especially on quiet days when your thoughts feel louder than the world around you.
+
+I just wanted to say that it’s okay to feel tired sometimes.  
+It’s okay to slow down, to miss things, and to quietly hold your feelings for a moment.
+
+Even when things feel heavy, I hope you remember —  
+you don’t have to face everything alone.
+
+Somewhere out there, someone is quietly wishing you peace, warmth, and gentler days ahead.
+
+Take care of yourself, even on the days when it feels hard to do so.
+  </div>
+
+  <div class="photos">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+  </div>
+
+  <div class="signature">
+    — your friend
+  </div>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function openLetter() {
+  document.querySelector('.envelope').style.display = 'none';
+  const letter = document.getElementById('letter');
+  letter.classList.add('show');
+
+  const music = document.getElementById('music');
+  music.volume = 0;
+  music.play();
+
+  // fade in music
+  let v = 0;
+  const fade = setInterval(() => {
+    if (v < 0.6) {
+      v += 0.01;
+      music.volume = v;
+    } else {
+      clearInterval(fade);
+    }
+  }, 100);
+
+  createFloatingIcons();
+}
+
+function createFloatingIcons() {
+  const icons = ["✨", "🌙", "☁️", "💫", "🌸"];
+  for (let i = 0; i < 18; i++) {
+    const span = document.createElement("span");
+    span.className = "float";
+    span.innerText = icons[Math.floor(Math.random() * icons.length)];
+    span.style.left = Math.random() * 100 + "vw";
+    span.style.animationDuration = 8 + Math.random() * 6 + "s";
+    document.body.appendChild(span);
+  }
+}
+</script>
+
+</body>
+</html>
