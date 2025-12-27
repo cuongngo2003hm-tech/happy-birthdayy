@@ -2,108 +2,96 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Quiet Letter</title>
+<title>A Quiet Letter</title>
 
 <style>
 body {
   margin: 0;
   height: 100vh;
-  background: #bcbcbc;
+  background: #a9a39a;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: Georgia, serif;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
 }
 
-/* phong bì */
-.envelope {
-  width: 140px;
-  height: 90px;
-  background: #e6c7a8;
-  position: relative;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.envelope::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-left: 70px solid transparent;
-  border-right: 70px solid transparent;
-  border-top: 45px solid #f0d5b8;
-}
-
-/* thư */
+/* LETTER */
 .letter {
-  position: fixed;
-  width: 340px;
-  background: #fffaf2;
-  padding: 24px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
-  display: none;
-  line-height: 1.6;
+  background: #fffaf3;
+  width: 420px;
+  padding: 32px;
+  line-height: 1.8;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  z-index: 2;
 }
 
-.close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 12px;
-  cursor: pointer;
+.letter p {
+  margin: 10px 0;
 }
+
+/* PHOTOS */
+.photo {
+  position: absolute;
+  width: 110px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  opacity: 0.9;
+}
+
+/* positions */
+.p1 { top: 40px; left: 40px; }
+.p2 { top: 40px; right: 40px; }
+.p3 { bottom: 40px; left: 40px; }
+.p4 { bottom: 40px; right: 40px; }
 </style>
 </head>
 
 <body>
 
-<div class="envelope" onclick="openLetter()"></div>
+<!-- PHOTOS -->
+<img src="img1.jpg" class="photo p1">
+<img src="img2.jpg" class="photo p2">
+<img src="img3.jpg" class="photo p3">
+<img src="img4.jpg" class="photo p4">
 
-<div class="letter" id="letter">
-  <div class="close" onclick="closeLetter()">× Đóng</div>
-
+<!-- LETTER -->
+<div class="letter">
   <p><b>To</b><br>Thuy Dung</p>
 
   <p><b>Happy Birthday.</b></p>
 
   <p>
-    Being far from home isn’t easy, especially on quiet days when your thoughts
-    feel louder than the world around you.
+    Being far from home isn’t easy, especially on quiet days when
+    your thoughts feel louder than the world around you.
   </p>
 
   <p>
-    I hope today feels gentle to you. I know you think deeply, and sometimes
-    your heart carries more weight than you let the world see.
+    I hope today feels gentle to you. I know you think deeply,
+    and sometimes your heart carries more weight than you let the
+    world see.
   </p>
 
   <p>
-    You don’t have to be strong all the time. It’s okay to slow down.
+    You don’t have to be strong all the time.
+    It’s okay to slow down.
     It’s okay to feel tired.
   </p>
 
   <p>
-    If this message reaches you softly, I hope it feels like someone
-    is sitting beside you, quietly and kindly.
+    If this message reaches you softly, I hope it feels like
+    someone is sitting beside you quietly and kindly.
   </p>
 
-  <p><b>From someone who cares,</b></p>
+  <p style="margin-top:24px;">
+    <b>From someone who cares,</b>
+  </p>
 </div>
 
-<audio id="bgm" src="music.mp3" loop></audio>
-
-<script>
-function openLetter() {
-  document.querySelector('.envelope').style.display = 'none';
-  document.getElementById('letter').style.display = 'block';
-  document.getElementById('bgm').play();
-}
-
-function closeLetter() {
-  document.getElementById('letter').style.display = 'none';
-  document.querySelector('.envelope').style.display = 'block';
-}
-</script>
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
