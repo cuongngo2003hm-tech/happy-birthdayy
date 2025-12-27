@@ -150,7 +150,7 @@ body {
     </div>
 </div>
 
-<audio id="bgMusic">
+<audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -172,16 +172,31 @@ function openLetter() {
             }, i * 650);
         });
 
+        // 🎵 Fade in nhạc
         music.volume = 0;
         music.play();
 
-        let v = 0;
-        const fade = setInterval(() => {
-            if (v < 1) {
-                v += 0.02;
-                music.volume = v;
-            } else clearInterval(fade);
+        let fadeIn = setInterval(() => {
+            if (music.volume < 1) {
+                music.volume += 0.02;
+            } else {
+                clearInterval(fadeIn);
+            }
         }, 200);
+
+        // 🌙 Fade out sau khi đọc xong (khoảng 18s)
+        setTimeout(() => {
+            let fadeOut = setInterval(() => {
+                if (music.volume > 0.02) {
+                    music.volume -= 0.02;
+                } else {
+                    music.volume = 0;
+                    music.pause();
+                    clearInterval(fadeOut);
+                }
+            }, 250);
+        }, 18000); // thời gian chờ trước khi fade out
+
     }, 600);
 }
 </script>
