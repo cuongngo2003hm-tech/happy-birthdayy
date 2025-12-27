@@ -1,81 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>A Small Message 💌</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(135deg, #fce4ec, #e3f2fd);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: 'Segoe UI', sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fce4ec, #e3f2fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
 
-    .container {
-        text-align: center;
-        background: white;
-        padding: 35px;
-        border-radius: 22px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        width: 90%;
-        max-width: 420px;
-        position: relative;
-    }
+/* ánh sáng nền */
+.glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,200,220,0.4), transparent);
+    animation: glow 6s infinite alternate;
+}
 
-    /* 💌 phong thư */
-    .envelope {
-        font-size: 60px;
-        cursor: pointer;
-        transition: transform 0.4s ease;
-    }
+@keyframes glow {
+    from { transform: scale(1); opacity: 0.5; }
+    to { transform: scale(1.2); opacity: 0.8; }
+}
 
-    .envelope:hover {
-        transform: scale(1.1);
-    }
+.container {
+    text-align: center;
+    background: white;
+    padding: 35px;
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    width: 90%;
+    max-width: 420px;
+    position: relative;
+    z-index: 2;
+}
 
-    .open {
-        animation: openLetter 1s forwards;
-    }
+/* phong thư */
+.envelope {
+    font-size: 65px;
+    cursor: pointer;
+    transition: transform 1s ease, opacity 1s ease;
+}
 
-    @keyframes openLetter {
-        0% { transform: scale(1); }
-        100% { transform: scale(0.9) rotateX(25deg); opacity: 0.3; }
-    }
+.envelope.open {
+    transform: translateY(-40px) scale(0.8);
+    opacity: 0.3;
+}
 
-    .message {
-        opacity: 0;
-        margin-top: 25px;
-        font-size: 16px;
-        color: #555;
-        line-height: 1.9;
-        transition: opacity 4s ease;
-    }
+/* thư */
+.message {
+    opacity: 0;
+    transform: translateY(20px);
+    margin-top: 20px;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.9;
+    transition: opacity 3s ease, transform 3s ease;
+}
 
-    .show {
-        opacity: 1;
-    }
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    .shape {
-        position: absolute;
-        opacity: 0.4;
-        animation: float 14s infinite ease-in-out;
-        font-size: 22px;
-    }
+/* trang trí bay */
+.shape {
+    position: absolute;
+    opacity: 0.4;
+    animation: float 14s infinite ease-in-out;
+    font-size: 22px;
+}
 
-    @keyframes float {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-25px); }
-        100% { transform: translateY(0); }
-    }
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+    100% { transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
+
+<div class="glow"></div>
 
 <!-- Trang trí -->
 <div class="shape" style="top:15%; left:20%">🌙</div>
@@ -92,17 +105,16 @@
         I don’t really know how to say this,  
         but I hope you’ve been okay lately.  
         Being far from home isn’t easy at all,  
-        and I just hope you’re taking care of yourself —  
-        even on the days when it feels a little heavy.  
+        and I hope you’re taking care of yourself  
+        even on the quiet, heavy days.  
         <br><br>
-        If things ever feel quiet or lonely,  
-        I hope you know that somewhere out there,  
-        someone is gently wishing you peace, warmth,  
-        and softer days ahead.
+        If things ever feel a little lonely,  
+        I just hope you know  
+        someone out there is gently wishing you  
+        warmth, peace, and softer days ahead.
     </div>
 </div>
 
-<!-- 🎵 Nhạc -->
 <audio id="bgMusic">
     <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -121,17 +133,16 @@ function openLetter() {
         music.volume = 0;
         music.play();
 
-        let v = 0;
+        let vol = 0;
         const fade = setInterval(() => {
-            if (v < 1) {
-                v += 0.02;
-                music.volume = v;
+            if (vol < 1) {
+                vol += 0.015;
+                music.volume = vol;
             } else {
                 clearInterval(fade);
             }
         }, 200);
-
-    }, 600);
+    }, 800);
 }
 </script>
 
