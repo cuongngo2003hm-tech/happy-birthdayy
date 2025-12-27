@@ -13,6 +13,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'Georgia', serif;
+  overflow: hidden;
 }
 
 /* ENVELOPE */
@@ -24,6 +25,7 @@ body {
   cursor: pointer;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
   transition: transform 0.3s;
+  z-index: 2;
 }
 
 .envelope:hover {
@@ -42,7 +44,7 @@ body {
   border-top: 55px solid #dfbfa9;
 }
 
-/* LETTER */
+/* OVERLAY */
 .letter {
   position: fixed;
   inset: 0;
@@ -52,13 +54,40 @@ body {
   justify-content: center;
 }
 
+/* LETTER */
 .letter-content {
   background: #fffaf3;
   width: 420px;
   padding: 32px;
   line-height: 1.8;
   box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  z-index: 3;
   animation: fadeIn 0.5s ease;
+}
+
+/* IMAGES AROUND LETTER */
+.photos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  width: 160px;
+  opacity: 0.35;
+  filter: blur(0.3px);
+  animation: float 10s ease-in-out infinite;
+}
+
+.photo.left1 { left: 6%; top: 18%; }
+.photo.left2 { left: 8%; bottom: 15%; animation-delay: 2s; }
+.photo.right1 { right: 6%; top: 22%; animation-delay: 1s; }
+.photo.right2 { right: 8%; bottom: 14%; animation-delay: 3s; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
 @keyframes fadeIn {
@@ -82,43 +111,48 @@ body {
 
 <!-- LETTER -->
 <div class="letter" id="letter">
+
+  <!-- PHOTOS -->
+  <div class="photos">
+    <img src="img1.jpg" class="photo left1">
+    <img src="img2.jpg" class="photo left2">
+    <img src="img3.jpg" class="photo right1">
+    <img src="img4.jpg" class="photo right2">
+  </div>
+
+  <!-- LETTER CONTENT -->
   <div class="letter-content">
     <div class="close" id="closeLetter">✕ Close</div>
 
-    <p class="line"><b>To,</b><br>Thùy Dung</p>
+    <p><b>To,</b><br>Thùy Dung</p>
 
-    
+    <p>Happy Birthday.</p>
 
-        <p class="line">Happy Birthday.</p>
-
-        <p class="line">
-            I hope today feels gentle enough for you.  
-            I know you think a lot,  
-            and sometimes your heart feels heavier  
-            than you let others see.
-        </p>
-
-        <p class="line">
-            Being far from home isn’t easy,  
-            especially on quiet days like this.
-        </p>
-
-        <p class="line">
-            You don’t have to be strong all the time.  
-            It’s okay to slow down.  
-            It’s okay to feel a little tired.
-        </p>
-
-        <p class="line">
-            If this message reaches you softly,  
-            I hope it feels like  
-            someone is sitting beside you quietly, gently.
-        </p>
-
-        <p class="line" style="margin-top:25px;">
-      
-            <b>Your friend,</b>
+    <p>
+      I hope today feels gentle enough for you.  
+      I know you think a lot,  
+      and sometimes your heart feels heavier  
+      than you let others see.
     </p>
+
+    <p>
+      Being far from home isn’t easy,  
+      especially on quiet days like this.
+    </p>
+
+    <p>
+      You don’t have to be strong all the time.  
+      It’s okay to slow down.  
+      It’s okay to feel a little tired.
+    </p>
+
+    <p>
+      If this message reaches you softly,  
+      I hope it feels like  
+      someone is sitting beside you quietly, gently.
+    </p>
+
+    <p style="margin-top:25px;"><b>Your friend,</b></p>
   </div>
 </div>
 
@@ -133,7 +167,7 @@ const letter = document.getElementById("letter");
 const closeBtn = document.getElementById("closeLetter");
 const music = document.getElementById("music");
 
-envelope.addEventListener("click", () => {
+envelope.onclick = () => {
   letter.style.display = "flex";
   music.volume = 0;
   music.play();
@@ -143,15 +177,13 @@ envelope.addEventListener("click", () => {
     if (v < 0.8) {
       v += 0.02;
       music.volume = v;
-    } else {
-      clearInterval(fade);
-    }
+    } else clearInterval(fade);
   }, 100);
-});
+};
 
-closeBtn.addEventListener("click", () => {
+closeBtn.onclick = () => {
   letter.style.display = "none";
-});
+};
 </script>
 
 </body>
