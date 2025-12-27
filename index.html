@@ -5,6 +5,25 @@
 <title>A Quiet Letter</title>
 
 <style>
+.photo {
+  position: fixed;
+  width: 90px;
+  height: auto;
+  opacity: 0.85;
+}
+
+.photo img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* vị trí từng ảnh */
+.photo1 { top: 60px; left: 20px; }
+.photo2 { top: 60px; right: 20px; }
+.photo3 { bottom: 60px; left: 20px; }
+.photo4 { bottom: 60px; right: 20px; }
+
 /* PHOTOS */
 .photos img {
   position: fixed;
@@ -127,9 +146,15 @@ body {
   opacity: 0.6;
 }
 </style>
+
 </head>
 
 <body>
+<div class="photo photo1"><img src="img1.jpg"></div>
+<div class="photo photo2"><img src="img2.jpg"></div>
+<div class="photo photo3"><img src="img3.jpg"></div>
+<div class="photo photo4"><img src="img4.jpg"></div>
+
 <div class="photos">
   <img src="img1.jpg" class="photo1">
   <img src="img2.jpg" class="photo2">
