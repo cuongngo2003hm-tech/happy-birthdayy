@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8" />
 <title>A Quiet Letter</title>
 
@@ -109,11 +110,107 @@ body {
   width: 120px;
   border-radius: 10px;
   opacity: 0.9;
+
+<meta charset="UTF-8">
+<title>A Small Letter 💌</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #fdecef, #eaf3ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+}
+
+/* 🌙 ICON BAY NHẸ */
+.floating {
+    position: absolute;
+    font-size: 18px;
+    opacity: 0.45;
+    animation: float 14s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(120vh);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-20vh);
+        opacity: 0;
+    }
+}
+
+/* 💌 KHUNG THƯ */
+.container {
+    background: white;
+    width: 420px;
+    max-width: 90%;
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+/* ✉️ PHONG THƯ */
+.envelope {
+    font-size: 60px;
+    cursor: pointer;
+    transition: 0.8s ease;
+}
+
+.envelope.open {
+    transform: translateY(-25px) scale(0.85);
+    opacity: 0.4;
+}
+
+/* ✨ NỘI DUNG THƯ */
+.letter {
+    margin-top: 24px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 2s ease;
+
+    text-align: left;
+    padding: 18px 10px;
+
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.9;
+    color: #444;
+}
+
+.letter.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* từng dòng hiện dần */
+.line {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: 1.3s ease;
+}
+
+.line.show {
+    opacity: 1;
+    transform: translateY(0);
+>>>>>>> ebc3512425c4a9ea628f2d08520f9d23ae62d5d8
 }
 </style>
 </head>
 
 <body>
+
 
 <!-- Envelope -->
 <div class="envelope" onclick="openLetter()"></div>
@@ -147,10 +244,65 @@ Take care of yourself, even on the days when it feels hard to do so.
 <!-- Music -->
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mpeg">
+
+<!-- ✨ ICON BAY -->
+<div class="floating" style="left:8%; animation-duration:15s;">✨</div>
+<div class="floating" style="left:18%; animation-duration:12s;">🌙</div>
+<div class="floating" style="left:30%; animation-duration:17s;">💫</div>
+<div class="floating" style="left:45%; animation-duration:14s;">☁️</div>
+<div class="floating" style="left:60%; animation-duration:16s;">🌼</div>
+<div class="floating" style="left:75%; animation-duration:13s;">✨</div>
+<div class="floating" style="left:88%; animation-duration:18s;">💭</div>
+
+<div class="container">
+    <div id="envelope" class="envelope" onclick="openLetter()">💌</div>
+
+    <div id="letter" class="letter">
+
+        <p class="line"><b>To,</b><br>Thùy Dung</p>
+
+        <p class="line">Happy Birthday.</p>
+
+        <p class="line">
+            I hope today feels gentle enough for you.  
+            I know you think a lot, and sometimes your heart carries  
+            more than you ever let others see.
+        </p>
+
+        <p class="line">
+            Being far from home isn’t easy,  
+            especially on quiet days when your thoughts  
+            feel louder than the world around you.
+        </p>
+
+        <p class="line">
+            You don’t always have to be strong.  
+            It’s okay to pause.  
+            It’s okay to feel tired.  
+            And it’s okay to take things slowly, at your own pace.
+        </p>
+
+        <p class="line">
+            If this message reaches you softly,  
+            I hope it feels like someone is sitting beside you but not saying much,  
+            just staying there, so you don’t feel alone.
+        </p>
+
+        <p class="line" style="margin-top:24px;">
+            <b>Your friend,</b>
+        </p>
+
+    </div>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+>>>>>>> ebc3512425c4a9ea628f2d08520f9d23ae62d5d8
 </audio>
 
 <script>
 function openLetter() {
+
   document.querySelector('.envelope').style.display = 'none';
   const letter = document.getElementById('letter');
   letter.classList.add('show');
@@ -183,6 +335,50 @@ function createFloatingIcons() {
     span.style.animationDuration = 8 + Math.random() * 6 + "s";
     document.body.appendChild(span);
   }
+
+    const envelope = document.getElementById("envelope");
+    const letter = document.getElementById("letter");
+    const lines = document.querySelectorAll(".line");
+    const music = document.getElementById("bgMusic");
+
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+        letter.classList.add("show");
+
+        lines.forEach((line, i) => {
+            setTimeout(() => {
+                line.classList.add("show");
+            }, i * 650);
+        });
+
+        // 🎵 Fade in nhạc
+        music.volume = 0;
+        music.play();
+
+        let fadeIn = setInterval(() => {
+            if (music.volume < 1) {
+                music.volume += 0.02;
+            } else {
+                clearInterval(fadeIn);
+            }
+        }, 200);
+
+        // 🌙 Fade out sau khi đọc xong (khoảng 18s)
+        setTimeout(() => {
+            let fadeOut = setInterval(() => {
+                if (music.volume > 0.02) {
+                    music.volume -= 0.02;
+                } else {
+                    music.volume = 0;
+                    music.pause();
+                    clearInterval(fadeOut);
+                }
+            }, 250);
+        }, 18000); // thời gian chờ trước khi fade out
+
+    }, 600);
+>>>>>>> ebc3512425c4a9ea628f2d08520f9d23ae62d5d8
 }
 </script>
 
